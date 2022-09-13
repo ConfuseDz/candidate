@@ -1,5 +1,4 @@
 import './Header.css';
-import headerimage from '../images/housewife.png';
 import {Link} from "react-router-dom";
 import {Nav, Container} from "react-bootstrap";
 

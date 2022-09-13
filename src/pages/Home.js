@@ -1,14 +1,16 @@
 import axios from 'axios';
+import './Home.css';
 import { useState, useEffect } from 'react';
+import {Container, Card, Button, Row, Col} from "react-bootstrap";
 
 const testUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
-function Home() {
-  const [post, setPost] = useState(null);  
+const Home = () => {
+  const [get, setGet] = useState(null);  
     useEffect(()=>{
       axios.get(urlGetService).then((res) => {
         const myData = res.data;
-        setPost(myData);
+        setGet(myData);
       })
       .catch(error => console.error(`Error : ${error}`));
     },[]);
@@ -24,19 +26,29 @@ function Home() {
   //   })
   // }
   
-  if (!post) return null;
+  if (!get) return null;
 
     return (
-      <div>
-        <h1>Home</h1>
-        {post.map((p) =>{
-          return(
-            console.log(p.name)
-          )
-        })}
-        {/* <h2>{post.name}</h2> */}
-        {/* <button onClick={createPost}>Postt</button> */}
-      </div>
+      <Container>
+      <Row>
+      {get.map((v, k) =>{console.log(v);
+        return(          
+            <Col md={4} key={k}>
+              <Card>
+                <Card.Img className='cardImg' src={v.picture}/>
+                <Card.Body>
+                <Row>
+                  <Col md={7}> <Card.Title>{v.name}</Card.Title></Col>
+                  <Col md="auto"> <Card.Text>เริ่มต้น ฿ {v.price}</Card.Text></Col>
+                </Row>
+                </Card.Body>
+              </Card>    
+            </Col>          
+        )
+      })};
+      </Row>
+      </Container>     
+     
     )
   };
   
