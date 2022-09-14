@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Header from './Header';
 import './Home.css';
 import { useState, useEffect } from 'react';
 import {Container, Card, Button, Row, Col} from "react-bootstrap";
@@ -8,25 +9,29 @@ const testUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
 
 function Home() {
-  const [get, setGet] = useState(null);  
+  const [get, setGet] = useState(null);
+  function getServices(){
+    axios.get(urlGetService).then((res) => {
+      const myData = res.data;
+      setGet(myData);
+    })
+    .catch(error => console.error(`Error : ${error}`));
+  }
 
     useEffect(()=>{
-      axios.get(urlGetService).then((res) => {
-        const myData = res.data;
-        setGet(myData);
-      })
-      .catch(error => console.error(`Error : ${error}`));      
+      getServices();
     },[]);
 
  
   if (!get) return null;
-
+    
     return (
+      <div>
+      <Header />
       <Container>
       <Row>
-      {get.map((v, k) =>{
-        console.log(v)
-        return(          
+      {get.map((v, k) =>{        
+        return(
             <Col md={4} key={k}>
               <Card>
                 <Card.Img className='cardImg' src={v.picture}/>                
@@ -44,7 +49,7 @@ function Home() {
       })}
       </Row>
       </Container>     
-     
+     </div>
     )
   };
   
