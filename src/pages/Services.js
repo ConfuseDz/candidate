@@ -1,5 +1,18 @@
+import { useEffect } from 'react';
+import {useParams} from 'react-router-dom';
+
 const Services = () => {
-    return <h1>Services</h1>;
+    const params = useParams();
+
+    useEffect(() =>{
+      console.log(params)
+    })
+
+    return (
+    
+    <h1>Services</h1>
+    
+    );
   };
   
   export default Services;
