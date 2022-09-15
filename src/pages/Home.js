@@ -10,6 +10,13 @@ const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
 
 function Home() {
   const [get, setGet] = useState(null);
+  const [user, setUser] = useState();
+
+  function getUser(){ 
+   axios.post('https://api-candidate.workforce-staging.com/v1/auth/signin', { "username": "seekster11", "password": "seekster11" })
+        .then(response => {console.log(response.data)});
+  }
+
   function getServices(){
     axios.get(urlGetService).then((res) => {
       const myData = res.data;
@@ -19,6 +26,7 @@ function Home() {
   }
 
     useEffect(()=>{
+      getUser();
       getServices();
     },[]);
 

@@ -1,4 +1,5 @@
 import MenuBar from './MenuBar';
+import './Services.css';
 import { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
@@ -42,7 +43,7 @@ function Services () {
          <h1>{serv.name}</h1>
          <h2>{serv.price}</h2>
         </div>
-        <div>          
+        <div className='preline'>          
           {serv.description}
           {/* {console.log(serv.description.replace(/(\r\n|\n|\r)/g,`'` + '<br />' + `'`))} */}
         </div>
