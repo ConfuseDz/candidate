@@ -4,31 +4,42 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 import {Container, Card, Button, Row, Col} from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import GetToken from './GetToken';
 
-const testUrl = 'https://jsonplaceholder.typicode.com/posts/1';
-const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
+const client = axios.create({
+  baseURL:'https://api-candidate.workforce-staging.com/v1'
+})
 
-function Home() {
-  const [get, setGet] = useState(null);
-  const [user, setUser] = useState();
+function Home(props) {
+  const [get, setGet] = useState();
+  const [userToken, setUserToken] = useState();
 
-  function getUser(){ 
-   axios.post('https://api-candidate.workforce-staging.com/v1/auth/signin', { "username": "seekster11", "password": "seekster11" })
-        .then(response => {console.log(response.data)});
-  }
+  useEffect(()=>{     
+    async function getToken(){
+      await client.post('/auth/signin', 
+      { "username": "seekster11", "password": "seekster11" })
+      .then((resToken) =>{
+        console.log(resToken)
+        setUserToken(resToken)
+      })
+    }
+    async function getPost(){
+      await client.get('/services').then((res) => {        
+        setGet(res.data);
+      })
+    }
+    // getToken();
+    getPost();
+  },[]);
+  // console.log(props.userToken)
 
-  function getServices(){
-    axios.get(urlGetService).then((res) => {
-      const myData = res.data;
-      setGet(myData);
-    })
-    .catch(error => console.error(`Error : ${error}`));
-  }
-
-    useEffect(()=>{
-      getUser();
-      getServices();
-    },[]);
+  // const getServices = () =>{
+  //   axios.get(baseURL).then((res) => {
+  //     const myData = res.data;
+  //     setGet(myData);
+  //   })
+  //   .catch(error => console.error(`Error : ${error}`));
+  // };
 
  
   if (!get) return null;
