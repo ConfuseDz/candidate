@@ -1,6 +1,6 @@
 import './MenuBar.css';
 import {Link} from "react-router-dom";
-import {Nav, Container} from "react-bootstrap";
+import {Nav, Container, Button} from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import Home from './Home';
 import axios from 'axios';
@@ -26,7 +26,7 @@ const MenuBar = () => {
     getToken();    
   },[]);
 
-  axios.defaults.headers.common = {'Authorization': `bearer ${userToken}`}
+  axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
   const config = {
     headers: { Authorization: `Bearer ${userToken}` }
   };
@@ -41,7 +41,8 @@ const MenuBar = () => {
     return (
             <Nav className="justify-content-end menubar">            
               <Nav.Link as={Link} to={'/Services'}>บริการ</Nav.Link>
-              <Nav.Link as={Link} to={'/Orders'} onClick={getOrders}>รายการ</Nav.Link>          
+              <Nav.Link as={Link} to={'/Orders'} >รายการ</Nav.Link>
+              <Button onClick={getOrders}>test</Button>    
             </Nav>
     )
   };
