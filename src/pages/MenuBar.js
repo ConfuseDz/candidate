@@ -4,6 +4,7 @@ import {Nav, Container, Button} from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import Home from './Home';
 import axios from 'axios';
+import Orders from './Orders';
 
 
 const client = axios.create({
@@ -13,7 +14,7 @@ const client = axios.create({
 
 const MenuBar = () => {
   const [userToken, setUserToken] = useState();
-
+  const [myOrders, setMyOrders] = useState();
   useEffect(()=>{     
     async function getToken(){
       await client.post('/auth/signin', 
@@ -23,27 +24,43 @@ const MenuBar = () => {
         setUserToken(resToken.data.accessToken)
       })
     }   
-    getToken();    
+    getToken();   
+    getOrders() 
   },[]);
 
   axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
   const config = {
     headers: { Authorization: `Bearer ${userToken}` }
   };
-  const bodyParameters = {key: userToken};    
+  
 
   function getOrders(){
-    client.get('/orders',
-      bodyParameters,
+    client.get('/orders',     
       config
-    ).then(console.log)
+    ).then((resOrders) => {
+      setMyOrders(resOrders.data)
+      console.log(resOrders)
+    })
   }
+  
+  // console.log(myOrders)
+
+  // const testProps = (props) =>{
+  //   return(<><Orders k="999" /></>)
+  // }
+
+  const myElement = myOrders;
+
+
     return (
             <Nav className="justify-content-end menubar">            
               <Nav.Link as={Link} to={'/Services'}>บริการ</Nav.Link>
               <Nav.Link as={Link} to={'/Orders'} >รายการ</Nav.Link>
-              <Button onClick={getOrders}>test</Button>    
+              {/* <Button onClick={getOrders}>test</Button>                   */}
             </Nav>
+            // <><Orders myprops={myElement}/></>
+            
+            
     )
   };
   
