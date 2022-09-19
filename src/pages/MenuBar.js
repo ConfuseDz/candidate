@@ -9,7 +9,7 @@ import Orders from './Orders';
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
-})
+});
 
 
 const MenuBar = () => {
@@ -25,7 +25,7 @@ const MenuBar = () => {
       })
     }   
     getToken();   
-    getOrders() 
+    // getOrders();
   },[]);
 
   axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
@@ -35,7 +35,7 @@ const MenuBar = () => {
   
 
   function getOrders(){
-    client.get('/orders',     
+    client.get('/orders',
       config
     ).then((resOrders) => {
       setMyOrders(resOrders.data)
@@ -49,14 +49,14 @@ const MenuBar = () => {
   //   return(<><Orders k="999" /></>)
   // }
 
-  const myElement = myOrders;
+  const myElement = 'myOrders';
 
 
     return (
             <Nav className="justify-content-end menubar">            
               <Nav.Link as={Link} to={'/Services'}>บริการ</Nav.Link>
-              <Nav.Link as={Link} to={'/Orders'} >รายการ</Nav.Link>
-              {/* <Button onClick={getOrders}>test</Button>                   */}
+              <Nav.Link as={Link} to={'/Orders'} myprops={myElement}>รายการ</Nav.Link>
+              <Button onClick={getOrders}>test</Button>                  
             </Nav>
             // <><Orders myprops={myElement}/></>
             

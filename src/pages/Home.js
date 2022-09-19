@@ -15,14 +15,14 @@ function Home(props) {
   const [userToken, setUserToken] = useState();
 
   useEffect(()=>{     
-    async function getToken(){
-      await client.post('/auth/signin', 
-      { "username": "seekster11", "password": "seekster11" })
-      .then((resToken) =>{
-        console.log(resToken)
-        setUserToken(resToken)
-      })
-    }
+    // async function getToken(){
+    //   await client.post('/auth/signin', 
+    //   { "username": "seekster11", "password": "seekster11" })
+    //   .then((resToken) =>{
+    //     console.log(resToken)
+    //     setUserToken(resToken)
+    //   })
+    // }
     async function getPost(){
       await client.get('/services').then((res) => {        
         setGet(res.data);
