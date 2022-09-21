@@ -2,15 +2,12 @@ import './MenuBar.css';
 import {Link} from "react-router-dom";
 import {Nav, Container, Button} from "react-bootstrap";
 import { useState, useEffect } from 'react';
-import Home from './Home';
 import axios from 'axios';
-import Orders from './Orders';
 
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
 });
-
 
 const MenuBar = () => {
   const [userToken, setUserToken] = useState();
@@ -43,19 +40,13 @@ const MenuBar = () => {
     })
   }
   
-  // console.log(myOrders)
-
-  // const testProps = (props) =>{
-  //   return(<><Orders k="999" /></>)
-  // }
-
-  const myElement = 'myOrders';
-
+ 
+  
 
     return (
             <Nav className="justify-content-end menubar">            
               <Nav.Link as={Link} to={'/Services'}>บริการ</Nav.Link>
-              <Nav.Link as={Link} to={'/Orders'} myprops={myElement}>รายการ</Nav.Link>
+              <Nav.Link as={Link} to={'/Orders'}>รายการ</Nav.Link>
               <Button onClick={getOrders}>test</Button>                  
             </Nav>
             // <><Orders myprops={myElement}/></>

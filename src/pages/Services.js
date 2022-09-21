@@ -59,8 +59,7 @@ function Services () {
          <h2>{serv.price}</h2>
         </div>
         <div className='preline'>          
-          {serv.description}
-          {/* {console.log(serv.description.replace(/(\r\n|\n|\r)/g,`'` + '<br />' + `'`))} */}
+          {serv.description}         
           <Button variant="primary" onClick={() => postOrders()}>จอง</Button>
         </div>
       </Container>

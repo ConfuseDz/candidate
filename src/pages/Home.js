@@ -14,33 +14,14 @@ function Home(props) {
   const [get, setGet] = useState();
   const [userToken, setUserToken] = useState();
 
-  useEffect(()=>{     
-    // async function getToken(){
-    //   await client.post('/auth/signin', 
-    //   { "username": "seekster11", "password": "seekster11" })
-    //   .then((resToken) =>{
-    //     console.log(resToken)
-    //     setUserToken(resToken)
-    //   })
-    // }
+  useEffect(()=>{ 
     async function getPost(){
       await client.get('/services').then((res) => {        
         setGet(res.data);
       })
-    }
-    // getToken();
-    getPost();
-  },[]);
-  // console.log(props.userToken)
-
-  // const getServices = () =>{
-  //   axios.get(baseURL).then((res) => {
-  //     const myData = res.data;
-  //     setGet(myData);
-  //   })
-  //   .catch(error => console.error(`Error : ${error}`));
-  // };
-
+    }    
+      getPost();    
+  },[]); 
  
   if (!get) return null;
     
