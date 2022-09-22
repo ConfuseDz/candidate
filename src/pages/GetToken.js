@@ -1,39 +1,45 @@
 import axios from 'axios';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import Orders from './Orders';
 
-// const BASEURL = 'https://api-candidate.workforce-staging.com/v1/';
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
-})
+});
 
-function GetToken(props){
-    const [userToken, setUserToken] = useState('userToken');   
+
+const AuthContext = createContext();
+
+function GetToken(){
+    const [userToken, setUserToken] = useState();   
     // const [myOrders, setMyOrders] = useState(null);
-  //  const userToken = '';
-   const myOrders = '';
+    const myToken = '';
+    const myOrders = '';
     useEffect(()=>{ 
-      async function getToken(userToken, myOrders){
+      async function getToken(myToken){
         await client.post('/auth/signin', 
         { "username": "seekster11", "password": "seekster11" })
         .then((resToken) =>{          
-          // setUserToken(resToken.data.accessToken)
-          const userToken = resToken.data.accessToken
-          console.log(userToken)
+          setUserToken(resToken.data.accessToken)
+          // const userToken = resToken.data.accessToken
+          // console.log(userToken)
+          return(myToken = userToken)
         });
 
-        axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
-        const config = { headers: { Authorization: `Bearer ${userToken}` } };
-
-        await client.get('/orders',
-          config
-        ).then((resOrders) => {
-          // setMyOrders(resOrders.data);
-          // console.log(myOrders)
-          myOrders = resOrders.data
-        })
-        .catch(err => console.log(err))        
+        console.log(userToken)
+        // setTimeout(() => {
+        //   axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
+        // const config = { headers: { Authorization: `Bearer ${userToken}` } };
+        //   client.get('/orders',
+        //   config
+        // ).then((resOrders) => {
+        //   // setMyOrders(resOrders.data);
+          
+        // })
+        // .catch(err => console.log(err)) 
+          
+        //   }, 2000);
+               
       }   
       getToken();
     },[]);
@@ -94,14 +100,18 @@ function GetToken(props){
 
 
     return(
-      <>
-      {/* <Orders test={userToken} /> */}
-      {/* <Orders myprops={myElement}/> */}
-      <h1>{`Hello ${userToken}!`}</h1>
       
-      </>
+      <AuthContext.Provider value={userToken}>
+      <section className="app-section">
+          <div className="app-container">
+              <Orders />
+          </div>
+      </section>
+    </AuthContext.Provider>
+      
          
     );   
 }
 
+export {AuthContext}
 export default GetToken;
