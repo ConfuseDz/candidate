@@ -9,10 +9,7 @@ import NoPage from './pages/NoPage';
 import GetToken from './pages/GetToken';
 
 
-
 function App() {
-  
-
   return (
     
       <BrowserRouter>            
@@ -21,6 +18,7 @@ function App() {
             <Route path="Orders" element={<Orders />}/>
             <Route path="Services/:_id" element={<Services />} />
             <Route path="GetToken" element={<GetToken />}/>
+            {/* <Route path="tokenContext" element={<tokenContext />}/> */}
             <Route path='*' element={<NoPage />} />
         </Routes>
       </BrowserRouter>

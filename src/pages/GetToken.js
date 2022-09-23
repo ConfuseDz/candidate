@@ -1,48 +1,36 @@
 import axios from 'axios';
 import { useState, useEffect, createContext, useContext } from 'react';
 import Orders from './Orders';
+import tokenContext from './tokenContext';
 
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
 });
+// const auth = useContext(AuthContext);
+// console.log(auth)
 
 
-const AuthContext = createContext();
 
 function GetToken(){
     const [userToken, setUserToken] = useState();   
     // const [myOrders, setMyOrders] = useState(null);
-    const myToken = '';
-    const myOrders = '';
-    useEffect(()=>{ 
-      async function getToken(myToken){
-        await client.post('/auth/signin', 
-        { "username": "seekster11", "password": "seekster11" })
-        .then((resToken) =>{          
-          setUserToken(resToken.data.accessToken)
-          // const userToken = resToken.data.accessToken
-          // console.log(userToken)
-          return(myToken = userToken)
-        });
 
+    useEffect(()=>{ 
+      // getToken()
+     
+      },[]);
+
+    async function getToken(){
+      await client.post('/auth/signin', 
+      { "username": "seekster11", "password": "seekster11" })
+      .then((resToken) =>{          
+        setUserToken(resToken.data.accessToken)
+        // const userToken = resToken.data.accessToken
         console.log(userToken)
-        // setTimeout(() => {
-        //   axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
-        // const config = { headers: { Authorization: `Bearer ${userToken}` } };
-        //   client.get('/orders',
-        //   config
-        // ).then((resOrders) => {
-        //   // setMyOrders(resOrders.data);
-          
-        // })
-        // .catch(err => console.log(err)) 
-          
-        //   }, 2000);
-               
-      }   
-      getToken();
-    },[]);
+      
+      });
+    }
 
     // async function getToken(){
     //   await client.post('/auth/signin', 
@@ -81,37 +69,38 @@ function GetToken(){
     //     console.log(myOrders)
     //   })
     // };      
-
-    // const getUser = async() => { 
-    //  await client.post(`/auth/signin`, 
-    //  { "username": "seekster11", "password": "seekster11" })
-    //       .then(response => {
-    //         setUserToken(response.data.accessToken);   
-    //         console.log(userToken)                   
-    //         })
-    //         .catch(error => console.error(`Error: ${error}`))
-    // };
+    axios.defaults.headers.common = {'Authorization': `Bearer ${userToken}`}
+    const config = { headers: { Authorization: `Bearer ${userToken}` } };
+    const getUser = async() => { 
+     await client.post(`/auth/signin`, 
+     { "username": "seekster11", "password": "seekster11" })
+          .then(response => {
+            setUserToken(response.data.accessToken);   
+            console.log(userToken)                   
+            })
+            .catch(error => console.error(`Error: ${error}`))
+    };
 
     // const ordersList = myOrders.map((v, k, ) =>{
     //   return{key:k, value: v}
     // });
   // console.log(ordersList[0].value.service)
   
+  const auth = useContext(tokenContext);
+  console.log(auth.status);
 
+  
 
     return(
-      
-      <AuthContext.Provider value={userToken}>
-      <section className="app-section">
-          <div className="app-container">
-              <Orders />
-          </div>
-      </section>
-    </AuthContext.Provider>
-      
-         
+      <><h2>GetToken</h2>
+       <h1>Are you authenticated?</h1>
+      {auth.status ? <p>Yes you are</p> : <p>Nopes</p>}
+ 
+      <button onClick={auth.login}>Click To Login</button>
+      </>  
+        
     );   
 }
 
-export {AuthContext}
+
 export default GetToken;
