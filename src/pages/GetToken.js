@@ -80,16 +80,10 @@ function GetToken(){
             })
             .catch(error => console.error(`Error: ${error}`))
     };
-
-    // const ordersList = myOrders.map((v, k, ) =>{
-    //   return{key:k, value: v}
-    // });
-  // console.log(ordersList[0].value.service)
+    
   
   const auth = useContext(tokenContext);
   console.log(auth.status);
-
-  
 
     return(
       <><h2>GetToken</h2>

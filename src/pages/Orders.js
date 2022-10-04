@@ -1,49 +1,64 @@
-import { useEffect, useState, createContext, useContext} from 'react';
-import {useParams} from 'react-router-dom';
+import { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
-import {Button, Container} from "react-bootstrap";
-import GetToken from './GetToken';
-import tokenContext from './tokenContext';
-
+import {DataContext} from '../App';
 
 const client = axios.create({
     baseURL:'https://api-candidate.workforce-staging.com/v1'
   });
 
  function Orders() {  
-    const authContext = createContext(null);
+   
+    const myToken = useContext(DataContext);
 
-    const [listServices, setListServices] = useState();
+    const [dataOrders, setDataOrders] = useState('aaa');   
+    const [loading, setLoading] = useState(false); 
+    const [quote, setQuote] = useState({});
+
+    // const getRandomQuote = () => {
+    //   setLoading(true);
+    //   fetch('https://api.quotable.io/random')
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setLoading(false);
+    //       setQuote(data);
+    //     });
+    // };
+   
 
     function getOrders(){
-        // axios.defaults.headers.common = {'Authorization': `Bearer ${auth}`}
-        // const config = { headers: { Authorization: `Bearer ${auth}` } };
+      setLoading(true);
+        axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
+        const config = { headers: { Authorization: `Bearer ${myToken}` } };
+        
           client.get('/orders',
-        //   config
-        ).then((resOrders) => {
-            // console.log(resOrders)
-            // resOrders.data.map((v, k) =>{
-            //     return(v)
-            //     console.log(v)
-            // })
-        //   setMyOrders(resOrders.data);
-        //   setListServices(resOrders)
+          config
+        ).then((resOrders) => {             
+            setLoading(false);         
+            setDataOrders(resOrders.data);
+            
         })
         .catch(err => console.log(err)) 
-    }
-    // getOrders();
-
+    };
    
+    useEffect(() =>{
+      getOrders();
+      // getRandomQuote();
+      
+    },[])
+    console.log(dataOrders)
+   
+    
 
   const [authstatus, setauthstatus] = useState(false);
   const login = () => {
     setauthstatus(true);
   };
  
-    return(
-        <tokenContext.Provider value={{ status: authstatus, login: login }}>
-        <GetToken />
-        </tokenContext.Provider>
+    return(    
+      <div>
+       
+      </div>
+
     )
 }
 
