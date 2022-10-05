@@ -41,7 +41,7 @@ const client = axios.create({
             return Date(ress.createdAt)
           });
         setResponse(newres);
-        console.log(newres)
+       
         setError(null);
       } catch (err) {
         setError(err);
@@ -54,45 +54,15 @@ const client = axios.create({
       // getOrders();
       fetchData();
     },[]);
-
-    const removeNulls = (obj) => {
-      const isArray = Array.isArray(obj);
-      for (const k of Object.keys(obj)) {
-         if (obj[k] === null) {
-            if (isArray) {
-               obj.splice(k, 1)
-            } else {
-               delete obj[k];
-            }
-         } else if (typeof obj[k] === "object") {
-            removeNulls(obj[k]);
-         }
-         if (isArray && obj.length === k) {
-            removeNulls(obj);
-         }
-      }
-      return obj;
-   }
-
-   function clean(obj) {
-    for (var propName in obj) {
-      if (obj[propName] === null || obj[propName] === undefined) {
-        delete obj[propName];
-      }
-    }
-    return obj
-  }
    
-  //  const newObj = removeNulls(response)
-  // const newObj = clean(response)
-  // const newArr = response.filter(object => {
-  //   return object.service !== null;
-  // });
-  //  console.log(newArr)
     
-  let today = new Date("September 30, 2020 11:28:00");
-  console.log(today.toLocaleString("th-TH", { timeZone: "UTC" }));
-  console.log(today.getDate() + '/' + today.getMonth() + '/' + today.getFullYear())
+  // let today = new Date("September 30, 2020 11:28:00");
+  let today = format(new Date(response[0].createdAt), 'dd/MMM/yyyy');
+  // console.log(today.toLocaleString("th-TH", { timeZone: "UTC" }));
+  // console.log(today.getDate() + '/' + today.getMonth() + '/' + today.getFullYear())
+  //  console.log(response[0].createdAt)
+  console.log(today)
+  
  
 
   const [authstatus, setauthstatus] = useState(false);
@@ -110,7 +80,7 @@ const client = axios.create({
             {item.service.description}<br />
             <b>ราคา : {item.service.price}</b>
             <br />
-            <b>{Date(item.createdAt)}</b>
+            <b>{format(new Date(item.createdAt), 'dd/MMM/yyyy')}</b>
             </p>
             
           )}
