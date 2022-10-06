@@ -1,22 +1,40 @@
 import MenuBar from './MenuBar';
 import './Services.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import {Button, Container} from "react-bootstrap";
-import GetToken from './GetToken';
+import {DataContext} from '../App';
 
-const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
-const myToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzIyZDBmMjI0M2MzMmIwMDhiMmYyNGMiLCJpYXQiOjE2NjM0MTA4ODksImV4cCI6MTY2MzQ0Njg4OX0.EY90ZyD0MTyDZS89VQzdCXCJLBK8lqkYBTMapwRU6HE';
+
+// const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
+const client = axios.create({
+  baseURL:'https://api-candidate.workforce-staging.com/v1'
+});
 
 
 function Services () {
+  const myToken = useContext(DataContext);
   const [serv, setServ] = useState(null);
   const [user, setUser] = useState();
   const params = useParams();
 
+  // function getOrders(){
+  //   setLoading(true);
+  //     axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
+  //     const config = { headers: { Authorization: `Bearer ${myToken}` } };        
+  //       client.get('/orders',
+  //       config
+  //     ).then((resOrders) => {             
+  //         setLoading(false);         
+  //         setDataOrders(resOrders.data);
+          
+  //     })
+  //     .catch(err => console.log(err)) 
+  // };
+
   function getServicesById(myData){
-      axios.get(urlGetService + '/' + params._id).then((ss) => {
+      client.get(`/services/` + params._id).then((ss) => {
         myData = ss.data;
         setServ(myData); 
         console.log(myData)
@@ -25,7 +43,7 @@ function Services () {
       .catch(error => console.error(`Error : ${error}`));
     };
 
-    axios.defaults.headers.common = {'Authorization': `bearer ${myToken}`}
+    axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
     const config = {
         headers: { Authorization: `Bearer ${myToken}` }
     };
