@@ -2,6 +2,7 @@ import { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import {DataContext} from '../App';
 import { format, formatISO } from "date-fns";
+import {Container, Card, Button, Row, Col} from "react-bootstrap";
 
 const client = axios.create({
     baseURL:'https://api-candidate.workforce-staging.com/v1'
@@ -62,19 +63,25 @@ const client = axios.create({
 
   
     return(
-      <div>
+      
+      <div>        
       {loading ? ( <div>Loading...</div> )  : (
         <div>
+          <h2><b>รายการ</b></h2>
           {error && error.message}
           {response && response?.map(
-            (item, k) => <p key={k}>{item.service.name}<br />
-            {item.service.description}<br />
-            <b>ราคา : {item.service.price}</b>
-            <br />
-            <b>วันที่ : {format(new Date(item.createdAt), 'dd/MMM/yyyy')}</b> 
-            <b>เวลา : {format(new Date(item.createdAt), 'HH:mm')}</b>
-            </p>
-            
+            (item, k) => 
+            <Card  key={k}>            
+            <Card.Body>
+              <p>{item.service.name}<br />
+              {item.service.description}<br />
+              <b>ราคา : {item.service.price}</b>
+              <br />
+              <b>วันที่ : {format(new Date(item.createdAt), 'dd/MMM/yyyy')}</b> 
+              <b>เวลา : {format(new Date(item.createdAt), 'HH:mm')}</b>
+              </p>
+            </Card.Body>
+            </Card>            
           )}
         </div>
       )}
