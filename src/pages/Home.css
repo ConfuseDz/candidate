@@ -1,11 +1,28 @@
-.card{
-    height: 300px !important;
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+
+.cardHome{
+    /* height: 300px !important; */
     margin-top: 15px;
     
 }
 
 .cardImg{
-  max-width: 100%;
-  max-height: 100%;
-  /* object-fit: none; */
+  /* width: 300px; */
+  height: 200px;
+  object-fit: cover;
+}
+
+.yellow{
+  color: rgb(224, 224, 51);
+}
+
+.blue{
+  color: rgb(29, 29, 233);
+}
+
+.dark{
+  color:black;
 }

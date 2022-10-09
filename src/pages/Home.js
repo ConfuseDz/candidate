@@ -29,17 +29,18 @@ function Home(props) {
       <div>
       <Header />
       <Container>
+      <div>
       <Row>
       {get.map((v, k) =>{        
         return(
             <Col md={4} key={k}>
-              <Card>
-                <Card.Img className='cardImg' src={v.picture}/>                
+              <Card className='cardHome'>
+                <Card.Img className='cardImg' src={v.picture} />                
                 <Card.Body>
                 <Link to={`/services/${v._id}`}>
                 <Row>
-                  <Col md={7}> <Card.Title>{v.name}</Card.Title></Col>
-                  <Col md="auto"> <Card.Text>เริ่มต้น ฿ {v.price}</Card.Text></Col>
+                  <Col md="auto" align="start"> <Card.Title className='dark'>{v.name}</Card.Title></Col>
+                  <Col align="end"> <Card.Text><span className='yellow'>เริ่มต้น </span><span className='blue'>฿ {v.price}</span></Card.Text></Col>
                 </Row>
                 </Link>
                 </Card.Body>
@@ -48,6 +49,7 @@ function Home(props) {
               )
       })}
       </Row>
+      </div>
       </Container>     
      </div>
     )
