@@ -4,15 +4,16 @@ a:hover { text-decoration: none; }
 a:active { text-decoration: none; }
 
 .cardHome{
-    /* height: 300px !important; */
+    height: 30vw !important;
     margin-top: 15px;
     
 }
 
 .cardImg{
-  /* width: 300px; */
-  height: 200px;
-  object-fit: cover;
+    max-inline-size: 100%;
+    block-size: auto;    
+    aspect-ratio: 2/1;
+    object-fit: cover;
 }
 
 .yellow{

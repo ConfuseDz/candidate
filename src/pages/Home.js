@@ -18,6 +18,7 @@ function Home(props) {
     async function getPost(){
       await client.get('/services').then((res) => {        
         setGet(res.data);
+        console.log(res.data)
       })
     }    
       getPost();    
@@ -35,7 +36,7 @@ function Home(props) {
         return(
             <Col md={4} key={k}>
               <Card className='cardHome'>
-                <Card.Img className='cardImg' src={v.picture} />                
+                <Card.Img className='cardImg' src={v.picture} alt={v.name}/>                
                 <Card.Body>
                 <Link to={`/services/${v._id}`}>
                 <Row>
