@@ -3,10 +3,8 @@ a:visited { text-decoration: none; }
 a:hover { text-decoration: none; }
 a:active { text-decoration: none; }
 
-.cardHome{
-    height: 30vw !important;
-    margin-top: 15px;
-    
+.cardHome{    
+    margin-top: 15px;   
 }
 
 .cardImg{
@@ -16,12 +14,22 @@ a:active { text-decoration: none; }
     object-fit: cover;
 }
 
+.cardTitle{
+  font-size: 0.8em;
+}
+
+.cardTitle-price{
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
 .yellow{
   color: rgb(224, 224, 51);
 }
 
 .blue{
   color: rgb(29, 29, 233);
+  white-space: break-spaces;
 }
 
 .dark{

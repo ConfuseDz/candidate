@@ -40,8 +40,8 @@ function Home(props) {
                 <Card.Body>
                 <Link to={`/services/${v._id}`}>
                 <Row>
-                  <Col md="auto" align="start"> <Card.Title className='dark'>{v.name}</Card.Title></Col>
-                  <Col align="end"> <Card.Text><span className='yellow'>เริ่มต้น </span><span className='blue'>฿ {v.price}</span></Card.Text></Col>
+                  <Col md sm="auto" align="start"> <Card.Text className='cardTitle dark'>{v.name}</Card.Text></Col>
+                  <Col md = "4" sm="3" align="end"> <Card.Text className='cardTitle-price'><span className='yellow'>เริ่มต้น </span><span className='blue'>฿ {v.price}</span></Card.Text></Col>
                 </Row>
                 </Link>
                 </Card.Body>
