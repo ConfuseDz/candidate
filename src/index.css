@@ -8,9 +8,31 @@ body, html {
     sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-bottom: 20px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@media (min-width: 30em) {
+  html {
+    font-size: 90%;
+  }
+}
+@media (min-width: 40em) {
+  html {
+    font-size: 95%;
+  }
+}
+/* @media (min-width: 50em) {
+  html {
+    font-size: 175%;
+  }
+} */
+@media (min-width: 60em) {
+  html {
+    font-size: 100%;
+  }
 }

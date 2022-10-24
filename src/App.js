@@ -2,7 +2,6 @@ import React,{ useState, useEffect, createContext } from 'react';
 import './App.css';
 import {BrowserRouter,  Routes,  Route} from "react-router-dom";
 import axios from 'axios';
-import Header from './pages/Header';
 import Home from './pages/Home';
 import Orders from './pages/Orders';
 import Services from './pages/Services';
@@ -13,11 +12,12 @@ import GetToken from './pages/GetToken';
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
 });
-export const DataContext =  createContext();
+export const Mytoken =  createContext();
+export const ServiceList = createContext();
 
 function App() {
   const [userToken, setUserToken] = useState([]);
-
+  const [getData, setGetData] = useState(); 
 
   useEffect(()=>{     
     async function getToken(){
@@ -27,25 +27,37 @@ function App() {
         console.log(resToken.data.accessToken)
         setUserToken(resToken.data.accessToken)
       })
-    }   
+    };
+
+    async function getPost(){
+      await client.get('/services').then((res) => {        
+        setGetData(res.data);
+        console.log(res.data)
+      })
+    };
+
+    getPost(); 
     getToken();   
-    // getOrders();
+    
   },[]);
 
 
   return (
-    <DataContext.Provider value={userToken}>
+    <ServiceList.Provider value={getData}>
+    <Mytoken.Provider value={userToken} >
       <BrowserRouter>            
         <Routes>
             <Route index element={<Home />}/>
             <Route path="Orders" element={<Orders />}/>
-            <Route path="Services/:_id" element={<Services />} />
+            <Route path="services" element={<Services />} />
+            {/* <Route path="services/:_id" element={<Services />} /> */}
             <Route path="GetToken" element={<GetToken />}/>
             {/* <Route path="tokenContext" element={<tokenContext />}/> */}
             <Route path='*' element={<NoPage />} />
         </Routes>
       </BrowserRouter>
-    </DataContext.Provider>
+    </Mytoken.Provider>
+    </ServiceList.Provider>
     
   )
 }

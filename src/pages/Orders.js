@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
-import {DataContext} from '../App';
-import { format, formatISO } from "date-fns";
+import {Mytoken} from '../App';
+import { format } from "date-fns";
 import {Container, Card, Button, Row, Col} from "react-bootstrap";
 import MenuBar from './MenuBar';
 
@@ -13,25 +13,11 @@ const client = axios.create({
   
  function Orders() {  
    
-    const myToken = useContext(DataContext);
+    const myToken = useContext(Mytoken);
     const [dataOrders, setDataOrders] = useState(myToken);   
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-  
-    // function getOrders(){
-    //   setLoading(true);
-    //     axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
-    //     const config = { headers: { Authorization: `Bearer ${myToken}` } };        
-    //       client.get('/orders',
-    //       config
-    //     ).then((resOrders) => {             
-    //         setLoading(false);         
-    //         setDataOrders(resOrders.data);
-            
-    //     })
-    //     .catch(err => console.log(err)) 
-    // };
 
     const fetchData = async () => {
       setLoading(true);
@@ -55,7 +41,7 @@ const client = axios.create({
     };
    
     useEffect(() =>{
-      // getOrders();
+     
       fetchData();
     },[]);
 
@@ -79,7 +65,7 @@ const client = axios.create({
             <Card.Body>
               <Row>
                 <Col sm md='9' as='h3' className='fw-semibold'>{item.service.name}</Col>
-                <Col sm md='3' align="end" className='fw-bold fs-5'><span className='text-warning fw-bold'> ราคา </span> <span className='text-info fw-bold'>{item.service.price}</span></Col>                
+                <Col sm md='3' align="end" className='fw-bold fs-5'><span className='yellow fw-bold'> ราคา </span> <span className='blue fw-bold'>{item.service.price}</span></Col>                
               </Row>
               <Row xs="auto">
                 <Col>{format(new Date(item.createdAt), 'dd MMMM yyyy')}</Col>

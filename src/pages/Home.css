@@ -4,7 +4,7 @@ a:hover { text-decoration: none; }
 a:active { text-decoration: none; }
 
 .cardHome{    
-    margin-top: 15px;   
+    margin-top: 40px;    
 }
 
 .cardImg{
@@ -14,24 +14,53 @@ a:active { text-decoration: none; }
     object-fit: cover;
 }
 
-.cardTitle{
-  font-size: 0.8em;
+.cardTitle-price{ 
+  white-space: nowrap;
+  inline-size: max-content; 
 }
 
-.cardTitle-price{
-  font-size: 0.8em;
-  white-space: nowrap;
-}
 
 .yellow{
-  color: rgb(224, 224, 51);
+  color: #ffd440;
 }
 
 .blue{
-  color: rgb(29, 29, 233);
+  color: #007aff;
   white-space: break-spaces;
 }
 
 .dark{
   color:black;
+}
+
+@media (width < 1200px) {
+  .block{
+    display: block;
+  }
+  .cardTitle{
+    font-size: 0.9em;    
+  }
+  
+}
+
+@media only screen and (width > 1200px) {  
+  .cardHome{    
+    margin-top: 40px;
+    min-height: 290px;
+  }
+}
+
+@media only screen and (width < 992px) 
+{
+  .cardHome{    
+    margin-top: 40px;
+    min-height: 226px;
+  }
+}
+
+
+@media only screen and (width < 768px) {
+  .block{
+    display: inline;
+  }  
 }

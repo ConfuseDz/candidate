@@ -1,30 +1,28 @@
 import axios from 'axios';
 import Header from './Header';
 import './Home.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {Container, Card, Button, Row, Col} from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import GetToken from './GetToken';
+
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
 })
 
-function Home(props) {
-  const [get, setGet] = useState();
-  const [userToken, setUserToken] = useState();
+function Home() {
+  const [getData, setGetData] = useState();  
 
   useEffect(()=>{ 
     async function getPost(){
       await client.get('/services').then((res) => {        
-        setGet(res.data);
-        console.log(res.data)
+        setGetData(res.data);        
       })
     }    
       getPost();    
   },[]); 
  
-  if (!get) return null;
+  if (!getData) return null;
     
     return (
       <div>
@@ -32,16 +30,22 @@ function Home(props) {
       <Container>
       <div>
       <Row>
-      {get.map((v, k) =>{        
+      {getData.map((v, k) =>{        
         return(
             <Col md={4} key={k}>
               <Card className='cardHome'>
                 <Card.Img className='cardImg' src={v.picture} alt={v.name}/>                
                 <Card.Body>
-                <Link to={`/services/${v._id}`}>
-                <Row>
-                  <Col md sm="auto" align="start"> <Card.Text className='cardTitle dark'>{v.name}</Card.Text></Col>
-                  <Col md = "4" sm="3" align="end"> <Card.Text className='cardTitle-price'><span className='yellow'>เริ่มต้น </span><span className='blue'>฿ {v.price}</span></Card.Text></Col>
+                {/* <Link to={`/services/${v._id}`}  state={{ data: `${v._id}` }}> */}
+                <Link to={`/services`}  state={{ id: `${v._id}` }}>
+                <Row >
+                  <Col lg md ="auto" xs="9" align="start"> <div className='cardTitle dark'>{v.name}</div></Col>
+                  <Col md="4" xs="auto"  align="end" style={{marginInlineStart: 'auto'}}> 
+                    <div className='cardTitle-price'>
+                      <span className='yellow block'>เริ่มต้น </span>
+                      <span className='blue block fw-bold'>฿ {v.price}</span>
+                    </div>
+                    </Col>
                 </Row>
                 </Link>
                 </Card.Body>
@@ -51,7 +55,7 @@ function Home(props) {
       })}
       </Row>
       </div>
-      </Container>     
+      </Container>
      </div>
     )
   };
