@@ -9,6 +9,7 @@ import NoPage from './pages/NoPage';
 import GetToken from './pages/GetToken';
 
 
+
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
 });
@@ -42,9 +43,9 @@ function App() {
   },[]);
 
 
-  return (
+  return (   
     <ServiceList.Provider value={getData}>
-    <Mytoken.Provider value={userToken} >
+    <Mytoken.Provider value={userToken} >    
       <BrowserRouter>            
         <Routes>
             <Route index element={<Home />}/>
@@ -55,10 +56,9 @@ function App() {
             {/* <Route path="tokenContext" element={<tokenContext />}/> */}
             <Route path='*' element={<NoPage />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter>    
     </Mytoken.Provider>
     </ServiceList.Provider>
-    
   )
 }
 
