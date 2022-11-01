@@ -13,28 +13,23 @@ const client = axios.create({
 });
 
 
-function Services (props) {
+function Services () {
   const myToken = useContext(Mytoken)
   const serviceList = useContext(ServiceList);
   const [serv, setServ] = useState(null);  
   const location = useLocation();  
-
-  console.log(serviceList) 
     
     axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
-    const config = {
-        headers: { Authorization: `Bearer ${myToken}` }
-    };
-    const bodyParameters = {key: myToken};      
+    const config = {headers: { Authorization: `Bearer ${myToken}` }};
+
+    console.log(myToken)
+  
     
-    const postOrders = async(serviceId) =>{
-      console.log('accept' + '\n' + serviceId)
-        //  axios.post( 
-        //       `https://api-candidate.workforce-staging.com/v1/services/${serv._id}/booking`,
-        //       bodyParameters,
-        //       config
-        //     ).then(console.log)
-        //     .catch(error => console.error(`Error: ${error}`));            
+    const postOrders = async(serviceId) =>{     
+      axios.post(`https://api-candidate.workforce-staging.com/v1/services/${serviceId}/booking`,                  
+                  config)
+        .then(console.log)
+        .catch(error => console.error(`Error: ${error}`));
       };
 
       async function getServicesById(){
@@ -42,7 +37,7 @@ function Services (props) {
         // client.get(`/services/` + params._id).then((ss) => {
         await client.get(`/services/` + servId).then((ss) => {          
           setServ(ss.data); 
-          console.log(ss.data)
+          // console.log(ss.data)
         })
         .catch(error => console.error(`Error : ${error}`));
       };
@@ -61,9 +56,9 @@ function Services (props) {
     };
    
     
-    // if (!serv) return (
-    // <div>Error</div>
-    // );
+    if (!serviceList) return (
+    <div>Error</div>
+    );
 
 
     return (

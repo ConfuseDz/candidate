@@ -5,51 +5,46 @@ import { format } from "date-fns";
 import {Container, Card, Button, Row, Col} from "react-bootstrap";
 import MenuBar from './MenuBar';
 
-
-
 const client = axios.create({
     baseURL:'https://api-candidate.workforce-staging.com/v1'
   });
   
- function Orders() {  
-   
-    const myToken = useContext(Mytoken);
-    const [dataOrders, setDataOrders] = useState(myToken);   
+ function Orders() { 
+     
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const myToken = useContext(Mytoken);
 
-    const fetchData = async () => {
-      setLoading(true);
-      setDataOrders(myToken);
-      axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
-      const config = { headers: { Authorization: `Bearer ${myToken}` } };
-      try {
-        const res = await client.get('/orders', config);       
-        const newres = res.data.filter(object => {
-            return object.service !== null;
-          }).filter(ress =>{
-            return Date(ress.createdAt)
-          });
-        setResponse(newres);        
-        setError(null);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    console.log(myToken)
+    
    
-    useEffect(() =>{
-     
-      fetchData();
+    useEffect(() =>{ 
+      axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
+        const config = {headers: { Authorization: `Bearer ${myToken}` }};
+        async function fetchData() {
+        setLoading(true);     
+        try {
+          const res = await client.get('/orders', config);       
+          const newres = res.data.filter(object => {
+              return object.service !== null;            
+            }).filter(ress =>{
+              return Date(ress.createdAt)
+            });
+          setResponse(newres);        
+          setError(null);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();    
     },[]);
-
-  const [authstatus, setauthstatus] = useState(false);
-  const login = () => {
-    setauthstatus(true);
-  };
   
+  if (!response) return (
+    <div><h1>Error</h1></div>
+    );
   
     return(      
       <div>      
