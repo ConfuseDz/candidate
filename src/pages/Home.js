@@ -34,21 +34,20 @@ function Home() {
         return(
             <Col md={4} key={k}>
               <Card className='cardHome'>
+              <Link to={`/services`}  state={{ id: `${v._id}` }}>
                 <Card.Img className='cardImg' src={v.picture} alt={v.name}/>                
                 <Card.Body>
-                {/* <Link to={`/services/${v._id}`}  state={{ data: `${v._id}` }}> */}
-                <Link to={`/services`}  state={{ id: `${v._id}` }}>
-                <Row >
+                <Row>
                   <Col lg md ="auto" xs="9" align="start"> <div className='cardTitle dark'>{v.name}</div></Col>
                   <Col md="4" xs="auto"  align="end" style={{marginInlineStart: 'auto'}}> 
                     <div className='cardTitle-price'>
                       <span className='yellow block'>เริ่มต้น </span>
-                      <span className='blue block fw-bold'>฿ {v.price}</span>
+                      <span className='blue block fw-bold'>฿ {v.price.toLocaleString()}</span>
                     </div>
                     </Col>
-                </Row>
-                </Link>
+                </Row>                
                 </Card.Body>
+                </Link>
               </Card>    
             </Col>          
               )

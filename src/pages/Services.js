@@ -58,9 +58,9 @@ function Services () {
           {serviceList.map((val, k) => {
             return(
               <div key={k}>
-                <div className='mt-5'>         
+                <div className='mt-5 mb-4'>         
                   <h1>{val.name}</h1>
-                  <h2>฿ {val.price}</h2>
+                  <h2 className='pt-3'>฿ {val.price.toLocaleString()}</h2>
                 </div>
                 <div className='preline'>          
                   {val.description}  
@@ -72,9 +72,9 @@ function Services () {
         </Container>      
       ) : (
         <Container>
-          <div className='mt-5'>         
+          <div className='mt-5 mb-4'>         
             <h1>{serv.name}</h1>
-            <h2>฿ {serv.price}</h2>
+            <h2 className='pt-3'>฿ {serv.price.toLocaleString()}</h2>
           </div>
           <div className='preline'>          
             {serv.description}  

@@ -55,7 +55,7 @@ const client = axios.create({
             <Card.Body>
               <Row>
                 <Col sm md='9' as='h3' className='fw-semibold'>{item.service.name}</Col>
-                <Col sm md='3' align="end" className='fw-bold fs-5'><span className='yellow fw-bold'> ราคา </span> <span className='blue fw-bold'>{item.service.price}</span></Col>                
+                <Col sm md='3' align="end" className='fw-bold fs-5'><span className='yellow fw-bold'> ราคา </span> <span className='blue fw-bold'>{item.service.price.toLocaleString()}</span></Col>                
               </Row>
               <Row xs="auto">
                 <Col>{format(new Date(item.createdAt), 'dd MMMM yyyy')}</Col>
