@@ -8,8 +8,6 @@ import Services from './pages/Services';
 import NoPage from './pages/NoPage';
 import GetToken from './pages/GetToken';
 
-
-
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
 });
@@ -24,16 +22,14 @@ function App() {
     async function getToken(){
       await client.post('/auth/signin', 
       { "username": "seekster11", "password": "seekster11" })
-      .then((resToken) =>{
-        console.log(resToken.data.accessToken)
+      .then((resToken) =>{        
         setUserToken(resToken.data.accessToken)
       })
     };
 
     async function getPost(){
       await client.get('/services').then((res) => {        
-        setGetData(res.data);
-        console.log(res.data)
+        setGetData(res.data);       
       })
     };
 

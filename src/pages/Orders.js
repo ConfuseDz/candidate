@@ -2,7 +2,7 @@ import { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import {Mytoken} from '../App';
 import { format } from "date-fns";
-import {Container, Card, Button, Row, Col} from "react-bootstrap";
+import {Container, Card, Row, Col} from "react-bootstrap";
 import MenuBar from './MenuBar';
 
 const client = axios.create({
@@ -13,42 +13,37 @@ const client = axios.create({
      
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);    
     const myToken = useContext(Mytoken);
-
-    console.log(myToken)
     
-   
-    useEffect(() =>{ 
+    const fetchData = async() => {
       axios.defaults.headers.common = {'Authorization': `Bearer ${myToken}`}
-        const config = {headers: { Authorization: `Bearer ${myToken}` }};
-        async function fetchData() {
-        setLoading(true);     
-        try {
-          const res = await client.get('/orders', config);       
-          const newres = res.data.filter(object => {
-              return object.service !== null;            
-            }).filter(ress =>{
-              return Date(ress.createdAt)
-            });
-          setResponse(newres);        
-          setError(null);
-        } catch (err) {
-          setError(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();    
+      const config = {headers: { Authorization: `Bearer ${myToken}` }};
+      setLoading(true);     
+      try {
+        const res = await client.get('/orders', config);       
+        const newres = res.data.filter(object => {
+            return object.service !== null;            
+          }).filter(ress =>{
+            return Date(ress.createdAt)
+          });
+        setResponse(newres);        
+        setError(null);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };    
+   
+    useEffect(() =>{
+      fetchData();
     },[]);
-  
-  if (!response) return (
-    <div><h1>Error</h1></div>
-    );
+    
   
     return(      
       <div>      
-      <MenuBar/>  
+      <MenuBar/>
       {loading ? ( <div>Loading...</div> )  : (
         <div>
           <Container className='mt-5'>
