@@ -39,7 +39,7 @@ function Home() {
                 <Card.Body>
                 <Row>
                   <Col lg md ="auto" xs="9" align="start"> <div className='cardTitle dark'>{v.name}</div></Col>
-                  <Col md="4" xs="auto"  align="end" style={{marginInlineStart: 'auto'}}> 
+                  <Col md="4" xs="auto" align="end" className='mr-1' style={{marginInlineStart: 'auto'}}> 
                     <div className='cardTitle-price'>
                       <span className='yellow block'>เริ่มต้น </span>
                       <span className='blue block fw-bold'>฿ {v.price.toLocaleString()}</span>
