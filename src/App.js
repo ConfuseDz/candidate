@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Orders from './pages/Orders';
 import Services from './pages/Services';
 import NoPage from './pages/NoPage';
-import GetToken from './pages/GetToken';
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'
@@ -24,6 +23,7 @@ function App() {
       { "username": "seekster11", "password": "seekster11" })
       .then((resToken) =>{        
         setUserToken(resToken.data.accessToken)
+        localStorage.setItem("token", JSON.stringify(resToken.data.accessToken));
       })
     };
 
@@ -47,8 +47,7 @@ function App() {
             <Route index element={<Home />}/>
             <Route path="Orders" element={<Orders />}/>
             <Route path="services" element={<Services />} />
-            {/* <Route path="services/:_id" element={<Services />} /> */}
-            <Route path="GetToken" element={<GetToken />}/>
+            {/* <Route path="services/:_id" element={<Services />} /> */}            
             {/* <Route path="tokenContext" element={<tokenContext />}/> */}
             <Route path='*' element={<NoPage />} />
         </Routes>
