@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Header from './Header';
-import './Home.css';
+import Header from '../header/header';
+import '../../style/Home.css';
 import { useState, useEffect, useContext } from 'react';
 import {Container, Card, Button, Row, Col} from "react-bootstrap";
 import { Link } from 'react-router-dom';

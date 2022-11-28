@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
-import {Mytoken} from '../App';
-import { format } from "date-fns";
+import format from 'date-fns/format';
 import {Container, Card, Row, Col} from "react-bootstrap";
-import MenuBar from './MenuBar';
+import { Mytoken } from '../../App';
+import MenuBar from '../header/menuBar';
 
 const client = axios.create({
     baseURL:'https://api-candidate.workforce-staging.com/v1'
@@ -73,30 +73,7 @@ const client = axios.create({
             </Card.Body>
             </Card>            
           )}
-          </Container>
-      {/* {loading ? ( <div>Loading...</div> )  : (
-        <div>
-          <Container className='mt-5'>
-          <h1 className='fw-bold mb-3'>รายการ</h1>
-          {error && error.message}
-          {response && response?.map(
-            (item, k) => 
-            <Card key={k} className='mb-2 shadow-sm' style={{borderColor:'#e3e3e3'}}>            
-            <Card.Body>
-              <Row>
-                <Col sm md='9' as='h3' className='fw-semibold'>{item.service.name}</Col>
-                <Col sm md='3' align="end" className='fw-bold fs-5'><span className='yellow fw-bold'> ราคา </span> <span className='blue fw-bold'>{item.service.price.toLocaleString()}</span></Col>                
-              </Row>
-              <Row xs="auto">
-                <Col>{format(new Date(item.createdAt), 'dd MMMM yyyy')}</Col>
-                <Col>{format(new Date(item.createdAt), 'HH:mm')}</Col>
-              </Row>
-            </Card.Body>
-            </Card>            
-          )}
-          </Container>
-        </div>
-      )} */}
+          </Container>      
     </div>
     )
 }

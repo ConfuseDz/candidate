@@ -2,10 +2,10 @@ import React,{ useState, useEffect, createContext } from 'react';
 import './App.css';
 import {BrowserRouter,  Routes,  Route} from "react-router-dom";
 import axios from 'axios';
-import Home from './pages/Home';
-import Orders from './pages/Orders';
-import Services from './pages/Services';
-import NoPage from './pages/NoPage';
+import Home from './components/pages/Home';
+import Orders from './components/pages/Orders';
+import Services from './components/pages/Services';
+import NoPage from './components/noPage';
 
 const client = axios.create({
   baseURL:'https://api-candidate.workforce-staging.com/v1'

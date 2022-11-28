@@ -1,11 +1,11 @@
-import MenuBar from './MenuBar';
-import './Services.css';
+import MenuBar from '../header/menuBar';
+import '../../style/Services.css';
 import { useEffect, useState, useContext } from 'react';
 import {useLocation} from 'react-router-dom';
 import axios from 'axios';
 import {Button, Container} from "react-bootstrap";
-import {Mytoken} from '../App';
-import {ServiceList} from '../App';
+import { Mytoken } from '../../App';
+import { ServiceList } from '../../App';
 
 // const urlGetService = 'https://api-candidate.workforce-staging.com/v1/services';
 const client = axios.create({

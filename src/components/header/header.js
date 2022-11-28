@@ -1,5 +1,5 @@
-import './Header.css';
-import MenuBar from './MenuBar';
+import '../../style/header.css';
+import MenuBar from './menuBar';
 import {Link} from "react-router-dom";
 import {Nav, Container} from "react-bootstrap";
 
